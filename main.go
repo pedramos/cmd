@@ -11,6 +11,7 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"path/filepath"
 )
 
 type FileSum struct {
@@ -23,10 +24,11 @@ const (
 	arrayFmt OutFmt = iota
 	csvFmt
 	tabFmt
+	zeroFmt
 )
 
 func usage() {
-	fmt.Println("dedup [-d PATH] [-p PATTERN] [-o FORMAT]")
+	fmt.Println("dedup [-d PATH] [-p PATTERN] [-o FORMAT] [-k DIR_PATTERN]")
 	os.Exit(1)
 }
 
@@ -53,7 +55,8 @@ func CalcSum(r io.Reader, path string, c chan FileSum) {
 
 var DirFlag = flag.String("d", "./", "Directory containing the files to deduplicate")
 var PatternFlag = flag.String("p", ".*", "Regex to find file names")
-var OutFormatFlag = flag.String("o", "array", "stdout fmt: csv, array, tab")
+var OutFormatFlag = flag.String("o", "array", "stdout fmt: csv, array, tab, zero")
+var KeepFilesFlag = flag.String("k", "*", "Preserve (keep) files which are in supplied directory")
 
 var wg sync.WaitGroup
 
@@ -67,6 +70,8 @@ func main() {
 		outfmt = arrayFmt
 	case "tab":
 		outfmt = tabFmt
+	case "zero":
+		outfmt = zeroFmt
 	default:
 		log.Fatal("Invalid output format")
 	}
@@ -100,9 +105,21 @@ func main() {
 
 	wg.Wait()
 	close(ch)
-
 	for sum := range fileHash {
 		if len(fileHash[sum]) > 1 {
+			for i := range fileHash[sum] {
+				if i > len(fileHash[sum]) {
+					break
+				}
+				if ismatch, err := filepath.Match(*KeepFilesFlag, fileHash[sum][i]); err == nil && ismatch {
+					fileHash[sum], err = remove(fileHash[sum], i)
+					if err != nil {
+						log.Fatalf("Probable bug: %v\n", err)
+					}
+				} else if err != nil {
+					log.Fatalf("Incorrect pattern to -k given\n")
+				}
+			}
 			switch outfmt {
 			case arrayFmt:
 				fmt.Printf("%+q\n", fileHash[sum])
@@ -110,7 +127,18 @@ func main() {
 				fmt.Println(strings.Join(fileHash[sum], ";"))
 			case tabFmt:
 				fmt.Println(strings.Join(fileHash[sum], "	"))
+			case zeroFmt:
+				fmt.Print("%s\x00",strings.Join(fileHash[sum], "\x00"))
 			}
 		}
 	}
+}
+
+func remove(s []string, i int)  ([]string, error) {
+	if len(s) == 0 || i > len(s) {
+		err := fmt.Errorf("Could not remove element %d-th from array with size %d", i, len(s))
+		return s, err
+	}
+	s[i] = s[len(s) - 1]
+ 	return s[:len(s)-1], nil
 }

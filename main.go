@@ -26,7 +26,7 @@ const (
 )
 
 func usage() {
-	fmt.Println("dedup [-d PATH] [-p PATTERN] [-r]")
+	fmt.Println("dedup [-d PATH] [-p PATTERN] [-o FORMAT]")
 	os.Exit(1)
 }
 
@@ -52,7 +52,6 @@ func CalcSum(r io.Reader, path string, c chan FileSum) {
 }
 
 var DirFlag = flag.String("d", "./", "Directory containing the files to deduplicate")
-var RecursiveFlag = flag.Bool("r", true, "Search recursivly in directory")
 var PatternFlag = flag.String("p", ".*", "Regex to find file names")
 var OutFormatFlag = flag.String("o", "array", "stdout fmt: csv, array, tab")
 

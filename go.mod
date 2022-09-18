@@ -1,3 +1,3 @@
-module pedroloraramos.win/s/dedup
+module pedrolorgaramos.win/s/dedup
 
 go 1.19

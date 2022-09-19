@@ -8,10 +8,10 @@ import (
 	"io/fs"
 	"log"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"sync"
-	"path/filepath"
 )
 
 type FileSum struct {
@@ -128,17 +128,17 @@ func main() {
 			case tabFmt:
 				fmt.Println(strings.Join(fileHash[sum], "	"))
 			case zeroFmt:
-				fmt.Print("%s\x00",strings.Join(fileHash[sum], "\x00"))
+				fmt.Print("%s\x00", strings.Join(fileHash[sum], "\x00"))
 			}
 		}
 	}
 }
 
-func remove(s []string, i int)  ([]string, error) {
+func remove(s []string, i int) ([]string, error) {
 	if len(s) == 0 || i > len(s) {
 		err := fmt.Errorf("Could not remove element %d-th from array with size %d", i, len(s))
 		return s, err
 	}
-	s[i] = s[len(s) - 1]
- 	return s[:len(s)-1], nil
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1], nil
 }

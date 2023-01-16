@@ -57,6 +57,7 @@ var DirFlag = flag.String("d", "./", "Directory containing the files to deduplic
 var PatternFlag = flag.String("p", ".*", "Regex to find file names")
 var OutFormatFlag = flag.String("o", "array", "stdout fmt: csv, array, tab, zero")
 var KeepFilesFlag = flag.String("k", "*", "Preserve (keep) files which are in supplied directory")
+var ShowAllFlag = flag.Bool("a", false, "Shows all files, without it the command will hide one of the files")
 
 var wg sync.WaitGroup
 
@@ -107,18 +108,24 @@ func main() {
 	close(ch)
 	for sum := range fileHash {
 		if len(fileHash[sum]) > 1 {
+			var removedOne bool = false
 			for i := range fileHash[sum] {
 				if i > len(fileHash[sum]) {
 					break
 				}
 				if ismatch, err := filepath.Match(*KeepFilesFlag, fileHash[sum][i]); err == nil && ismatch {
 					fileHash[sum], err = remove(fileHash[sum], i)
+					removedOne = true
 					if err != nil {
 						log.Fatalf("Probable bug: %v\n", err)
 					}
+					break
 				} else if err != nil {
 					log.Fatalf("Incorrect pattern to -k given\n")
 				}
+			}
+			if removedOne == false && !*ShowAllFlag {
+				fileHash[sum], err = remove(fileHash[sum], 0)
 			}
 			switch outfmt {
 			case arrayFmt:

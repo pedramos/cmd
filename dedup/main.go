@@ -14,6 +14,7 @@ import (
 	"sync"
 )
 
+
 type FileSum struct {
 	sum, path string
 }

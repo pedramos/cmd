@@ -1,3 +1,3 @@
-module plramos.win/go/cmd/dedup
+module plramos.win/cmd/dedup
 
 go 1.19

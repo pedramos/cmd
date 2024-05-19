@@ -1,0 +1,6 @@
+github.com/trustmaster/go-aspell v0.0.0-20200701131845-c2b1f55bec8f h1:92ZQJRegaqnKjz9HY9an696Sw5EmAqRv0eie/U2IE6k=
+github.com/trustmaster/go-aspell v0.0.0-20200701131845-c2b1f55bec8f/go.mod h1:wxUiQ1klFJmwnM41kQI7IT2g8jjOKbtuL54LdjkxAI0=
+pedrolorgaramos.win/s/9fans-go v0.0.0-20220912174647-79efb0746874 h1:VXxirjwY7Ob7qIiix6Z4WydT0mBtoNRyr6qbaijdxxo=
+pedrolorgaramos.win/s/9fans-go v0.0.0-20220912174647-79efb0746874/go.mod h1:U5MJ8FxlkWNHKhXS5e/4m2IAsXPk5fxSMGPmF60AL04=
+plramos.win/9fans v0.0.0-20230316172545-b1bbece2f60d h1:62zy5h8f5Xh1ADh2IkB6+uxMkH7g7yOKlkF3g8Nh028=
+plramos.win/9fans v0.0.0-20230316172545-b1bbece2f60d/go.mod h1:snpkUNPNo7hFyqe9KaWu3DJRx0BAk89XHmtoJHiUAfY=

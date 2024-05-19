@@ -1,0 +1,7 @@
+golang.org/x/exp v0.0.0-20230224173230-c95f2b4c22f2 h1:Jvc7gsqn21cJHCmAWx0LiimpP18LZmUxkT5Mp7EZ1mI=
+golang.org/x/exp v0.0.0-20230224173230-c95f2b4c22f2/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
+gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+plramos.win/9fans v0.0.0-20230220185551-7a23f4a8c3e0 h1:J4voWjsSeIFb+/l96SMkxdO+1zTJLRe6O1/kRPy7ptE=
+plramos.win/9fans v0.0.0-20230220185551-7a23f4a8c3e0/go.mod h1:snpkUNPNo7hFyqe9KaWu3DJRx0BAk89XHmtoJHiUAfY=
